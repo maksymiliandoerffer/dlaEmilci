@@ -100,12 +100,10 @@
             display: none !important;
         }
 
-      
         .fade-out {
             opacity: 0;
             transition: opacity 0.5s ease;
         }
-        
     </style>
 </head>
 <body>
@@ -130,13 +128,16 @@
     </div>
     
     <audio id="bgMusic" loop>
-    <source src="The Police - Every Breath You Take (Official Music Video).mp3" type="audio/mpeg">
+        <source src="The Police - Every Breath You Take (Official Music Video).mp3" type="audio/mpeg">
     </audio>
+
     <script>
         const music = document.getElementById('bgMusic');
+        
         document.body.addEventListener('click', function() {
-        music.play();
+            music.play();
         }, { once: true });
+
         const yesBtn = document.getElementById('yesBtn');
         const noBtn = document.getElementById('noBtn');
         const mainCard = document.getElementById('main-card');
@@ -207,25 +208,26 @@
 
             }, 300); 
         });
+
         const countDate = new Date("2026-02-15T15:50:00").getTime();
 
         const x = setInterval(function() {
-        const now = new Date().getTime();
-        const distance = countDate - now;
+            const now = new Date().getTime();
+            const distance = countDate - now;
 
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        document.getElementById("timer").innerHTML = 
-            days + " dni, " + hours + " godz, " + minutes + " min, " + seconds + " s";
+            document.getElementById("timer").innerHTML = 
+                days + " dni, " + hours + " godz, " + minutes + " min, " + seconds + " s";
 
-        if (distance < 0) {
-            clearInterval(x);
-            document.getElementById("timer").innerHTML = "To już!;
-        }
-    }, 1000);
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("timer").innerHTML = "To już!";
+            }
+        }, 1000);
     </script>
 </body>
 </html>
