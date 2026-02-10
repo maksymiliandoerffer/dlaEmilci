@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dla mojej Walentynki ❤️</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden; 
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 90%;
+            width: 400px;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        h1 {
+            color: #d63384;
+            font-family: 'Indie Flower', cursive; 
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column; 
+            align-items: center;
+            gap: 15px;
+            min-height: 150px; 
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            outline: none;
+            user-select: none;
+        }
+
+        #yesBtn {
+            background-color: #ff4757;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+            z-index: 10; 
+        }
+
+        #yesBtn:hover {
+            background-color: #ff6b81;
+            transform: scale(1.05);
+        }
+
+        #noBtn {
+            background-color: #dfe4ea;
+            color: #2f3542;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        #noBtn:hover {
+            background-color: #ced6e0;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+      
+        .fade-out {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="main-card">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpndW13ZzZqZzFqZzFqZzFqZzFqZzFqZzFqZzFqZzFqJmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/0fS09SOn17VscWd3B9/giphy.gif" alt="Please cat">
+        <h1>Zostaniesz moją Walentynką? 🌹</h1>
+        <div class="buttons">
+            <button id="yesBtn">TAK!</button>
+            <button id="noBtn">Nie</button>
+        </div>
+    </div>
+
+    <div class="container hidden" id="success-card">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmN6ZzZqZzFqZzFqZzFqZzFqZzFqZzFqZzFqZzFqJmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/L4mUvUfWfHkF8vHl8Q/giphy.gif" alt="Happy cat">
+        <h1>Wiedziałem! Kocham Cię! 🥰</h1>
+        <p>(Widzimy się 14 lutego!)</p>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const mainCard = document.getElementById('main-card');
+        const successCard = document.getElementById('success-card');
+
+        const noTexts = [
+            "Jesteś pewna?", 
+            "Na pewno?", 
+            "Pomyśl jeszcze raz!", 
+            "Złamię mi serce...", 
+            "Będę płakać!", 
+            "Ostatnia szansa!", 
+            "Proszęęę...", 
+            "Nie rób mi tego!", 
+            "Dobra, koniec żartów!",
+            "Kliknij TAK!"
+        ];
+
+        let yesScale = 1;
+        let noScale = 1;
+        let clickCount = 0;
+
+        noBtn.addEventListener('click', () => {
+            clickCount++;
+            
+            yesScale += 0.4; 
+            yesBtn.style.transform = `scale(${yesScale})`;
+
+            noScale -= 0.1;
+            
+            if (clickCount < noTexts.length) {
+                noBtn.innerText = noTexts[clickCount];
+            } else {
+                noBtn.innerText = "Nie ma takiej opcji!";
+            }
+
+            if (noScale > 0.2) {
+                noBtn.style.transform = `scale(${noScale})`;
+            } else {
+                noBtn.style.display = 'none'; 
+            }
+        });
+
+        yesBtn.addEventListener('click', () => {
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+
+            setTimeout(() => {
+                mainCard.classList.add('hidden');
+                successCard.classList.remove('hidden');
+                
+                var duration = 3 * 1000;
+                var animationEnd = Date.now() + duration;
+                var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+                var interval = setInterval(function() {
+                    var timeLeft = animationEnd - Date.now();
+
+                    if (timeLeft <= 0) {
+                        return clearInterval(interval);
+                    }
+
+                    var particleCount = 50 * (timeLeft / duration);
+                    confetti(Object.assign({}, defaults, { particleCount, origin: { x: Math.random(), y: Math.random() - 0.2 } }));
+                }, 250);
+
+            }, 300); // 300ms opóźnienia
+        });
+    </script>
+</body>
+</html>
