@@ -122,6 +122,10 @@
     <div class="container hidden" id="success-card">
         <img src="7fd493d029e88f51324cc8e3ebb8d403.gif" alt="Happy cat">
         <h1>Wiedziałem! 🥰</h1>
+        <div id="countdown" style="margin-top: 20px; padding: 15px; background: #fff0f3; border-radius: 10px; color: #d63384; font-weight: bold; font-size: 1.2rem;">
+        Widzimy się za: <br>
+        <span id="timer">Liczenie...</span>
+        </div>
         <p>😘😘😘😘😘😘😘😘😘</p>
     </div>
     
@@ -203,6 +207,25 @@
 
             }, 300); 
         });
+        const countDate = new Date("2026-02-15T15:50:00").getTime();
+
+        const x = setInterval(function() {
+        const now = new Date().getTime();
+        const distance = countDate - now;
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("timer").innerHTML = 
+            days + " dni, " + hours + " godz, " + minutes + " min, " + seconds + " s";
+
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("timer").innerHTML = "To już!;
+        }
+    }, 1000);
     </script>
 </body>
 </html>
